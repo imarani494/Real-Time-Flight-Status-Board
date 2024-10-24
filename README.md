@@ -4,6 +4,9 @@ The Flight Status Tracker is a web application built using React and TypeScript 
 with information such as flight number, airline, origin, destination, and status. Users can click on a flight to view detailed information, including aircraft type, gate, terminal,
 and baggage claim details.
 
+Presentation Video
+https://www.youtube.com/watch?v=G30TCPNXG28
+
 ## Installation
 
 To run the application locally, follow these steps:
