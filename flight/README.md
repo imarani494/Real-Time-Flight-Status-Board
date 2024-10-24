@@ -49,14 +49,14 @@ flight-status-app/
 ├── README.md  
 └── tsconfig.json
 
-<!-- Key Features -->
+Key Features
 
 Flight Status Table A table displaying a list of flights with basic information such as Flight Number, Airline, Origin, Destination, Departure Time, and Status.
 Flight Detail Page Detailed information about individual flights, accessible via a clickable link in the table.
 Real-time Updates The flight list is refreshed automatically every 10 seconds to provide real-time status updates.
 Error HandlingIf any error occurs during the fetching of flight data, the app will display an alert with an appropriate error message.
 
-<!-- Technologies Used -->
+Technologies Used
 
 - React For building the user interface.
 - TypeScript For type-safe development.
@@ -64,3 +64,11 @@ Error HandlingIf any error occurs during the fetching of flight data, the app wi
 - Bootstrap For responsive layout and styling.
 - Axios For making HTTP requests to the flight status API.
 - Mock API The app fetches data from a mock flight status API provided by `https://flight-status-mock.core.travelopia.cloud`.
+
+Conclusion
+The Flight Status Application is a user-friendly interface for checking the status of flights. It utilizes React for the frontend, React Router for navigation, and Axios for API interactions. The application features:
+
+A flight status board that displays a list of flights with their details.
+A detailed view for each flight, showing specific information retrieved from the API.
+Error handling and loading states to enhance user experience.
+This project can be further enhanced by integrating more features such as user authentication, advanced filtering, and sorting of flights, or even incorporating WebSocket for real-time flight updates.
