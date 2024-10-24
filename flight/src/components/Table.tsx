@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Table as BootstrapTable, Container, Alert } from "react-bootstrap";
+import {
+  Table as BootstrapTable,
+  Container,
+  Alert,
+  Spinner
+} from "react-bootstrap";
 import { fetchFlights } from "../services/api";
 import { Flight } from "../types/flight";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,14 +13,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const FlightTable: React.FC = () => {
   const [flights, setFlights] = useState<Flight[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getFlights = async () => {
+      setLoading(true);
       try {
         const data = await fetchFlights();
         setFlights(data);
+        setError(null);
       } catch (err) {
+        console.error("Error fetching flights:", err);
         setError("Error fetching flights");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -23,10 +34,18 @@ const FlightTable: React.FC = () => {
 
     const intervalId = setInterval(() => {
       getFlights();
-    }, 10000);
+    }, 50000);
 
     return () => clearInterval(intervalId);
   }, []);
+
+  if (loading) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    );
+  }
 
   if (error) {
     return <Alert variant="danger">{error}</Alert>;

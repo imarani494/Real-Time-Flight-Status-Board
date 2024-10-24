@@ -1,10 +1,9 @@
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Table from "./components/Table";
+import Detail from "./components/Detail";
 
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Table from './components/Table';
-import Detail from './components/Detail';
-
-import './App.css'
+import "./App.css";
 
 const App: React.FC = () => {
   return (

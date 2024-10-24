@@ -1,37 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Card,  Alert, Spinner } from "react-bootstrap";
+import { Card, Alert, Spinner } from "react-bootstrap";
 import { fetchFlightById } from "../services/api";
 import { FlightDetails } from "../types/flight";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Detail: React.FC = () => {
-  const { id } = useParams<{ id?: string }>(); 
+  const { id } = useParams<{ id?: string }>();
   const [flight, setFlight] = useState<FlightDetails | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getFlight = async () => {
+      setLoading(true);
       if (!id) {
         setError("Flight ID is missing");
+        setLoading(false);
         return;
       }
       try {
         const data = await fetchFlightById(id);
+        console.log("Fetched flight data:", data);
         setFlight(data);
-      } catch (err: any) {
-        setError("Error fetching flight details");
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching flight details:", err);
+        setError(
+          "Error fetching flight details: " +
+            (err instanceof Error ? err.message : "Unknown error")
+        );
+      } finally {
+        setLoading(false);
       }
     };
 
     getFlight();
   }, [id]);
 
-  if (error) {
-    return <Alert variant="danger">{error}</Alert>;
-  }
-
-  if (!flight) {
+  if (loading) {
     return (
       <div className="text-center">
         <Spinner animation="border" role="status">
@@ -39,6 +46,14 @@ const Detail: React.FC = () => {
         </Spinner>
       </div>
     );
+  }
+
+  if (error) {
+    return <Alert variant="danger">{error}</Alert>;
+  }
+
+  if (!flight) {
+    return <Alert variant="warning">No flight details available.</Alert>;
   }
 
   return (
